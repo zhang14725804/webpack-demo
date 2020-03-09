@@ -1,4 +1,5 @@
 const path = require('path');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     // JavaScript 执行入口文件
@@ -11,12 +12,27 @@ module.exports = {
     },
     module:{
         // 告诉 Webpack 在遇到哪些文件时使用哪些 Loader 去加载和转换。
-        rules:[
+        rules: [
             {
                 // 用正则去匹配要用该 loader 转换的 CSS 文件
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                use: [
+                    miniCssExtractPlugin.loader,
+                    // 转换 .css 文件需要使用的 Loader
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false
+                        }
+                    }
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new miniCssExtractPlugin({
+            // 从 .js 文件中提取出来的 .css 文件的名称
+            filename: `[name]_[contenthash:8].css`,
+        }),
+    ]
 };

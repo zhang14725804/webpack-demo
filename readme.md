@@ -24,25 +24,28 @@ package.json增加如下代码
 
 npm i -D style-loader css-loader
 
-修改webpack.config.js
+bundle.js 文件被更新了，里面注入了在 main.css 中写的 CSS，而不是会额外生成一个 CSS 文件
 
-    module.exports = {
-    // JavaScript 执行入口文件
-    entry: './main.js',
-    output: {
-        // 把所有依赖的模块合并输出到一个 bundle.js 文件
-        filename: 'bundle.js',
-        // 输出文件都放到 dist 目录下
-        path: path.resolve(__dirname, './dist'),
-    },
-    module: {
-        rules: [
-        {
-            // 用正则去匹配要用该 loader 转换的 CSS 文件
-            test: /\.css$/,
-            // 'css-loader?minimize' 这么写会报错
-            use: ['style-loader', 'css-loader'],
-        }
-        ]
-    }
-    };
+
+### 使用Plugin
+
+    npm i -D extract-text-webpack-plugin
+
+通过 Plugin 把注入到 bundle.js 文件里的 CSS 提取到单独的文件中
+
+
+插件按版本问题导致错误（extract-text-webpack-plugin目前版本不支持webpack4）：：
+    
+    DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead extract-text-webpack-plugin
+
+安装最新版本
+
+    npm install extract-text-webpack-plugin@next
+
+还是报错：：
+
+    Path variable [contenthash:8] not implemented in this context: [name]_[contenthash:8].css
+
+webpack4中，使用mini-css-extract-plugin代替extract-text-webpack-plugin
+
+    cnpm i mini-css-extract-plugin -D

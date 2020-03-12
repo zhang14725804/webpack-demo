@@ -27,7 +27,7 @@ npm i -D style-loader css-loader
 bundle.js 文件被更新了，里面注入了在 main.css 中写的 CSS，而不是会额外生成一个 CSS 文件
 
 
-### 使用Plugin
+### 3、使用Plugin
 
     npm i -D extract-text-webpack-plugin
 
@@ -49,3 +49,11 @@ bundle.js 文件被更新了，里面注入了在 main.css 中写的 CSS，而�
 webpack4中，使用mini-css-extract-plugin代替extract-text-webpack-plugin
 
     cnpm i mini-css-extract-plugin -D
+
+4、使用 DevServer
+
+    （1）提供 HTTP 服务而不是使用本地文件预览（实时预览）,问题来了（todos：：为什么css样式不热更新）；
+    （2）监听文件的变化并自动刷新网页，做到实时预览（热更新）；
+    （3）支持 Source Map，以方便调试（生成源码以供调试）。
+
+    npm i -D webpack-dev-server

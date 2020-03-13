@@ -2,6 +2,7 @@ const path = require('path');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+    context:path.resolve(__dirname, '../'),
     // JavaScript 执行入口文件
     entry: './main.js',
     output: {
